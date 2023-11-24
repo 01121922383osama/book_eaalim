@@ -1,11 +1,12 @@
-import 'Presentation/App/Presentaion/Manager/Theme/theme_cubit.dart';
-import 'Presentation/App/Presentaion/Manager/TypeIndex/app_index_toggle_cubit.dart';
-import 'Presentation/Settings/Presentaion/Manager/ShowPassword/show_password_cubit.dart';
-import 'glopal.dart';
+import 'package:bookly_app/Presentation/Home/Presentation/Manager/IndexSliders/indexslider_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'Presentation/App/Presentaion/Manager/Theme/theme_cubit.dart';
+import 'Presentation/App/Presentaion/Manager/TypeIndex/app_index_toggle_cubit.dart';
+import 'Presentation/Settings/Presentaion/Manager/ShowPassword/show_password_cubit.dart';
 import 'Presentation/SplashPage/Presentation/Views/splash_page.dart';
+import 'glopal.dart';
 
 void main() async {
   await Global.init();
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ShowPasswordCubit(),
+        ),
+        BlocProvider(
+          create: (context) => IndexsliderCubit(),
         )
       ],
       child: BlocBuilder<ThemeCubit, bool>(

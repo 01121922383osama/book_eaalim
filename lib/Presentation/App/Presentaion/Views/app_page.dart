@@ -27,8 +27,8 @@ class AppPage extends StatelessWidget {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
-              label: 'HomePage',
-              tooltip: 'HomePage',
+              label: 'Home',
+              tooltip: 'Home',
               activeIcon: Icon(Icons.home),
             ),
             BottomNavigationBarItem(
