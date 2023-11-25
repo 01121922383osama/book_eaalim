@@ -55,3 +55,35 @@ List<Widget> pages = [
   const BooksPage(),
   const SettingsPage(),
 ];
+
+/*
+ bottomNavigationBar: NavigationBar(
+          selectedIndex: state.index,
+          onDestinationSelected: (index) {
+            context.read<AppIndexToggleCubit>().typeIndex(index);
+          },
+          elevation: 0,
+          backgroundColor: Colors.red.withOpacity(0.1),
+          indicatorColor: Colors.red,
+          destinations: [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+              tooltip: 'Home',
+              // activeIcon: Icon(Icons.home),
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.book_outlined),
+              label: 'Books',
+              tooltip: 'Books',
+              // activeIcon: Icon(Icons.book),
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.settings_outlined),
+              label: 'Settings',
+              tooltip: 'Settings',
+              // activeIcon: Icon(Icons.settings),
+            ),
+          ],
+        ),
+*/

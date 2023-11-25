@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import '../../../../glopal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 
 import '../../../../core/Colors/app_colors.dart';
+import '../../../../glopal.dart';
 
 class ViewPdfPage extends StatelessWidget {
   const ViewPdfPage({super.key});
@@ -18,7 +18,7 @@ class ViewPdfPage extends StatelessWidget {
         Completer<PDFViewController>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('PDF'),
+        title: Text('THE PDF NAME'),
       ),
       body: PDF(
         enableSwipe: true,

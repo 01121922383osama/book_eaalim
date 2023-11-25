@@ -75,67 +75,69 @@ class BooksPage extends StatelessWidget {
             notification.disallowIndicator();
             return true;
           },
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.6,
-            ),
-            itemCount: booksImages.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(5),
-                child: CachedNetworkImage(
-                  imageUrl: booksImages[index],
-                  imageBuilder: (context, imageProvider) => Container(
-                    alignment: Alignment.bottomCenter,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 2,
-                      ),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'The BookName',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          shadows: [
-                            Shadow(
-                              color: Colors.indigoAccent,
-                              offset: Offset(0, 1),
-                            ),
-                            Shadow(
-                              color: Colors.indigoAccent,
-                              offset: Offset(1, 0),
-                            ),
-                            Shadow(
-                              color: Colors.indigoAccent,
-                              offset: Offset(0, -1),
-                            ),
-                            Shadow(
-                              color: Colors.indigoAccent,
-                              offset: Offset(-1, 0),
-                            ),
-                          ],
+          child: Scrollbar(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.6,
+              ),
+              itemCount: booksImages.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: CachedNetworkImage(
+                    imageUrl: booksImages[index],
+                    imageBuilder: (context, imageProvider) => Container(
+                      alignment: Alignment.bottomCenter,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        border: Border.all(
                           color: Colors.black,
+                          width: 2,
+                        ),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'The BookName',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            shadows: [
+                              Shadow(
+                                color: Colors.indigoAccent,
+                                offset: Offset(0, 1),
+                              ),
+                              Shadow(
+                                color: Colors.indigoAccent,
+                                offset: Offset(1, 0),
+                              ),
+                              Shadow(
+                                color: Colors.indigoAccent,
+                                offset: Offset(0, -1),
+                              ),
+                              Shadow(
+                                color: Colors.indigoAccent,
+                                offset: Offset(-1, 0),
+                              ),
+                            ],
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ).animate().shimmer(),
-              );
-            },
+                    placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ).animate().shimmer(),
+                );
+              },
+            ),
           ),
         ),
       ),

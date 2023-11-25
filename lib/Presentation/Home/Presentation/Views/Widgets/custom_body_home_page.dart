@@ -1,9 +1,9 @@
-import '../../../../../core/Images/app_assets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../../Animation/slide_animation.dart';
+import '../../../../../core/Images/app_assets.dart';
 import '../../../../Books/Presentation/Views/books_page.dart';
 import '../view_pdf_page.dart';
 

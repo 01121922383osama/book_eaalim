@@ -1,4 +1,4 @@
-import 'package:bookly_app/Presentation/Home/Presentation/Manager/IndexSliders/indexslider_cubit.dart';
+import 'Presentation/Home/Presentation/Manager/IndexSliders/indexslider_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

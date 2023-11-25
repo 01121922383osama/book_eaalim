@@ -1,4 +1,4 @@
-import 'package:bookly_app/core/Widgets/app_shadow_list.dart';
+import '../../../../core/Widgets/app_shadow_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
