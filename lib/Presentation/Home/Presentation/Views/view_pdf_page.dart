@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
@@ -17,6 +18,7 @@ class ViewPdfPage extends StatelessWidget {
     final Completer<PDFViewController> _pdfViewController =
         Completer<PDFViewController>();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('THE PDF NAME'),
       ),
@@ -31,10 +33,10 @@ class ViewPdfPage extends StatelessWidget {
         preventLinkNavigation: true,
         nightMode: Global.storageService.getBoolain(),
         onError: (error) {
-          print(error.toString());
+          log(error.toString());
         },
         onPageError: (page, error) {
-          print('$page: ${error.toString()}');
+          log('$page: ${error.toString()}');
         },
         onViewCreated: (PDFViewController pdfViewController) async {
           _pdfViewController.complete(pdfViewController);
@@ -44,7 +46,7 @@ class ViewPdfPage extends StatelessWidget {
         },
         onPageChanged: (page, total) {
           _pageCountController.add('${current + 1} - $total');
-          print('page change: $page/$total');
+          log('page change: $page/$total');
         },
       ).fromAsset('assets/Pdf/AlgorithmsNotesForProfessionals.pdf'),
       floatingActionButton: FutureBuilder<PDFViewController>(
@@ -57,7 +59,87 @@ class ViewPdfPage extends StatelessWidget {
               children: <Widget>[
                 FloatingActionButton(
                   backgroundColor: AppColors.subBackground.withOpacity(0.4),
-                  heroTag: '-',
+                  heroTag: UniqueKey(),
+                  child: Icon(Icons.search),
+                  onPressed: () async {
+                    if (snapshot.hasData && snapshot.data != null) {
+                      final PDFViewController pdfViewController =
+                          snapshot.data!;
+                      final pageCount = await pdfViewController.getPageCount();
+                      final currentPage =
+                          await pdfViewController.getCurrentPage();
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Page'),
+                                    Text('${pageCount! - 1}'),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('CurrentPage'),
+                                    Text('$currentPage'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            actions: [
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: Colors.grey,
+                                ),
+                                child: TextField(
+                                  onSubmitted: (value) {
+                                    int pageNumber = int.tryParse(value) ?? 1;
+
+                                    if (pageNumber > 0) {
+                                      _pdfViewController.future.then(
+                                          (PDFViewController pdfController) {
+                                        pdfController
+                                            .getPageCount()
+                                            .then((totalPages) {
+                                          pageNumber =
+                                              pageNumber.clamp(1, totalPages!);
+
+                                          pdfController.setPage(pageNumber);
+                                        });
+                                      });
+                                      Navigator.pop(context);
+                                    } else {
+                                      print("Invalid page number");
+                                    }
+                                  },
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(Icons.numbers),
+                                    hintText: 'page number',
+                                    border: InputBorder.none,
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
+                SizedBox(height: 10),
+                FloatingActionButton(
+                  backgroundColor: AppColors.subBackground.withOpacity(0.4),
+                  heroTag: UniqueKey(),
                   child: const Text(
                     '-',
                     style: TextStyle(fontSize: 35),
@@ -74,7 +156,7 @@ class ViewPdfPage extends StatelessWidget {
                 SizedBox(height: 10),
                 FloatingActionButton(
                   backgroundColor: AppColors.subBackground.withOpacity(0.4),
-                  heroTag: '+',
+                  heroTag: UniqueKey(),
                   child: const Text(
                     '+',
                     style: TextStyle(fontSize: 35),
