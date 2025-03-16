@@ -1,12 +1,11 @@
-import '../../Manager/IndexSliders/indexslider_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart' as anim;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../../core/Images/app_assets.dart';
+import '../../Manager/IndexSliders/indexslider_cubit.dart';
 
 class SliderWidgetHomePage extends StatelessWidget {
   const SliderWidgetHomePage({super.key});
@@ -18,79 +17,77 @@ class SliderWidgetHomePage extends StatelessWidget {
         builder: (context, state) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                height: MediaQuery.of(context).size.height / 3.5,
-                autoPlay: true,
-                autoPlayAnimationDuration: const Duration(seconds: 3),
-                autoPlayCurve: Curves.easeInOut,
-                enlargeCenterPage: true,
-                onPageChanged: (index, reason) {
-                  context.read<IndexsliderCubit>().typSlideIndex(index);
-                },
-              ),
-              items: List.generate(
-                  4,
-                  (index) => anim.Animate(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 5, vertical: 10),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            // image: DecorationImage(
-                            //   fit: BoxFit.fill,
-                            //   image: NetworkImage(imagesSliders[index]),
-                            // ),
-                          ),
-                          child: CachedNetworkImage(
-                            imageUrl: imagesSliders[index],
-                            imageBuilder: (context, imageProvider) => Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 10),
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
+            Container(
+              height: 200.0,
+              child: CarouselView(
+                controller: CarouselController(
+                  initialItem: state.index,
+                ),
+                itemExtent: 10000,
+                children: List.generate(
+                    4,
+                    (index) => anim.Animate(
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 10),
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              // image: DecorationImage(
+                              //   fit: BoxFit.fill,
+                              //   image: NetworkImage(imagesSliders[index]),
+                              // ),
                             ),
-                            placeholder: (context, url) => Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2,
-                                ),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                    Assets.imagesBgwhite,
+                            child: CachedNetworkImage(
+                              imageUrl: imagesSliders[index],
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 10),
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
-                            )
-                                .animate(
-                                  autoPlay: true,
-                                  onComplete: (controller) {
-                                    controller.repeat();
-                                  },
-                                )
-                                .shimmer(duration: Duration(seconds: 1)),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                              placeholder: (context, url) => Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 2,
+                                  ),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(
+                                      Assets.imagesBgwhite,
+                                    ),
+                                  ),
+                                ),
+                              )
+                                  .animate(
+                                    autoPlay: true,
+                                    onComplete: (controller) {
+                                      controller.repeat();
+                                    },
+                                  )
+                                  .shimmer(duration: Duration(seconds: 1)),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
                           ),
-                        ),
-                      )
-                          .animate(
-                            autoPlay: true,
-                            onComplete: (controller) {
-                              controller.repeat();
-                            },
-                          )
-                          .shimmer(duration: Duration(seconds: 3))).toList(),
+                        )
+                            .animate(
+                              autoPlay: true,
+                              onComplete: (controller) {
+                                controller.repeat();
+                              },
+                            )
+                            .shimmer(duration: Duration(seconds: 3))).toList(),
+              ),
             ),
             AnimatedSmoothIndicator(
               activeIndex: state.index,

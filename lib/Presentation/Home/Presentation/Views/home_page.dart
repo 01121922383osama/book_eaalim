@@ -1,6 +1,6 @@
-import '../../../../core/Colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/Colors/app_colors.dart';
 import 'Widgets/costtom_appbar_widget.dart';
 import 'Widgets/custom_body_home_page.dart';
 import 'Widgets/slider_page.dart';
